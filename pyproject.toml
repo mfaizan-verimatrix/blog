@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "dvcas-config-generator"
+version = "1.4.0-alpha.1"
+description = "Client library to support configuration of VCAS services via AppConfig"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+boto3 = "^1.18.54"
+Jinja2 = "^3.0.2"
+typing-extensions = "^3.10.0"
+"ruamel.yaml" = "^0.17.16"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "==22.3.0"
+invoke = "^1.6.0"
+mypy = "^0.910"
+pytest-black = "^0.3.12"
+pytest-mock = "^3.6.1"
+pytest-watch = "^4.2.0"
+pre-commit = "^2.20.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
