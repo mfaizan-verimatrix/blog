@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
     - develop
-    - main
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -14,12 +13,23 @@ jobs:
         with:
           ref: develop
       - name: Read pyproject.toml from develop
-        run: cat ${{github.workspace}}/pyproject.toml
+        run: >-
+          echo "::set-output name=DEVELOP_VERSION::$(
+            cat pyproject.toml |
+            grep version
+          )"
         id: develop-version
       - name: Checkout the repo to PR
         uses: actions/checkout@v3
         with:
           ref: ${{github.ref}}
       - name: Read pyproject.toml from PR
-        run: cat ${{github.workspace}}/pyproject.toml
+        run: >-
+          echo "::set-output name=PR_VERSION::$(
+            cat pyproject.toml |
+            grep version
+          )"
         id: pr-version
+      - name: Prints the output
+        run: echo "${{steps.develop-version.outputs.DEVELOP_VERSION}}"
+        run: echo "${{steps.pr-version.outputs.PR_VERSION}}"
