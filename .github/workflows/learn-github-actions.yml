@@ -31,5 +31,6 @@ jobs:
           )"
         id: pr-version
       - name: Prints the output
-        run: echo "${{steps.develop-version.outputs.DEVELOP_VERSION}}"
-        run: echo "${{steps.pr-version.outputs.PR_VERSION}}"
+        run: |
+          echo "${{steps.develop-version.outputs.DEVELOP_VERSION}}"
+          echo "${{steps.pr-version.outputs.PR_VERSION}}"
