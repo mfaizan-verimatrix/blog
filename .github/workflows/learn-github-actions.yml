@@ -4,14 +4,15 @@ on:
   pull_request:
     branches:
     - develop
+    - release
 jobs:
   Check-Version-Bump:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repo on develop
+      - name: Checkout the repo on ${{ github.base_ref }}
         uses: actions/checkout@v3
         with:
-          ref: develop
+          ref: ${{ github.base_ref }}
       - name: Read pyproject.toml from develop
         run: >-
           echo "::set-output name=DEVELOP_VERSION::$(
@@ -21,7 +22,7 @@ jobs:
       - name: Checkout the repo to PR
         uses: actions/checkout@v3
         with:
-          ref: ${{github.ref}}
+          ref: ${{github.head_ref}}
       - name: Read pyproject.toml from PR
         run: >-
           echo "::set-output name=PR_VERSION::$(
