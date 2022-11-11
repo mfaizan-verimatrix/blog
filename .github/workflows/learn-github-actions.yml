@@ -30,8 +30,11 @@ jobs:
             grep version
           )"
         id: pr-version
-      - name: Prints the output
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+      - name: Check bump version
         run: |
-          echo "${{steps.develop-version.outputs.DEVELOP_VERSION}}"
-          echo "${{steps.pr-version.outputs.PR_VERSION}}"
-          exit 1
+          python ./github/check_bump_version.py ${{steps.develop-version.outputs.DEVELOP_VERSION}} ${{steps.pr-version.outputs.PR_VERSION}}
+          exit $?
