@@ -19,7 +19,7 @@ jobs:
             cat pyproject.toml | grep version | cut -d "=" -f 2 | xargs
           )"
         id: base-version
-      - name: Checkout the repo to PR branch ${{ gitbub.head_ref }}
+      - name: Checkout the repo to PR branch ${{ github.head_ref }}
         uses: actions/checkout@v3
         with:
           ref: ${{github.head_ref}}
