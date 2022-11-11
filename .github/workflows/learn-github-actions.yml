@@ -1,37 +1,39 @@
 name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is testing out GitHub Actions
 on:
   pull_request:
     branches:
     - develop
+    - release
 jobs:
   Check-Version-Bump:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repo on develop
+      - name: Checkout the repo on ${{ github.base_ref }}
         uses: actions/checkout@v3
         with:
-          ref: develop
+          ref: ${{ github.base_ref }}
       - name: Read pyproject.toml from develop
         run: >-
-          echo "::set-output name=DEVELOP_VERSION::$(
-            cat pyproject.toml |
-            grep version
+          echo "::set-output name=BASE_VERSION::$(
+            cat pyproject.toml | grep version | cut -d "=" -f 2 | xargs
           )"
-        id: develop-version
-      - name: Checkout the repo to PR
+        id: base-version
+      - name: Checkout the repo to PR branch ${{ github.head_ref }}
         uses: actions/checkout@v3
         with:
-          ref: ${{github.ref}}
+          ref: ${{github.head_ref}}
       - name: Read pyproject.toml from PR
         run: >-
           echo "::set-output name=PR_VERSION::$(
-            cat pyproject.toml |
-            grep version
+            cat pyproject.toml | grep version | cut -d "=" -f 2 | xargs
           )"
         id: pr-version
-      - name: Prints the output
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.0
+      - name: Check bump version
         run: |
-          echo "${{steps.develop-version.outputs.DEVELOP_VERSION}}"
-          echo "${{steps.pr-version.outputs.PR_VERSION}}"
-          exit 1
+          python .github/check_bump_version.py ${{steps.base-version.outputs.BASE_VERSION}} ${{steps.pr-version.outputs.PR_VERSION}}
+          exit $?
