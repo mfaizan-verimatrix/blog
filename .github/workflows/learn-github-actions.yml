@@ -5,7 +5,7 @@ on:
     branches:
     - develop
 jobs:
-  Explore-GitHub-Actions:
+  Check-Version-Bump:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo on develop
@@ -34,3 +34,4 @@ jobs:
         run: |
           echo "${{steps.develop-version.outputs.DEVELOP_VERSION}}"
           echo "${{steps.pr-version.outputs.PR_VERSION}}"
+          exit 1
