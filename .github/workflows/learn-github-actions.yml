@@ -1,5 +1,5 @@
 name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is testing out GitHub Actions
 on:
   pull_request:
     branches:
@@ -15,11 +15,11 @@ jobs:
           ref: ${{ github.base_ref }}
       - name: Read pyproject.toml from develop
         run: >-
-          echo "::set-output name=DEVELOP_VERSION::$(
+          echo "::set-output name=BASE_VERSION::$(
             cat pyproject.toml | grep version | cut -d "=" -f 2 | xargs
           )"
-        id: develop-version
-      - name: Checkout the repo to PR
+        id: base-version
+      - name: Checkout the repo to PR branch ${{ gitbub.head_ref }}
         uses: actions/checkout@v3
         with:
           ref: ${{github.head_ref}}
@@ -35,5 +35,5 @@ jobs:
           python-version: 3.10.0
       - name: Check bump version
         run: |
-          python .github/check_bump_version.py ${{steps.develop-version.outputs.DEVELOP_VERSION}} ${{steps.pr-version.outputs.PR_VERSION}}
+          python .github/check_bump_version.py ${{steps.base-version.outputs.BASE_VERSION}} ${{steps.pr-version.outputs.PR_VERSION}}
           exit $?
