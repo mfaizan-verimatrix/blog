@@ -15,8 +15,7 @@ jobs:
       - name: Read pyproject.toml from develop
         run: >-
           echo "::set-output name=DEVELOP_VERSION::$(
-            cat pyproject.toml |
-            grep version
+            cat pyproject.toml | grep version | cut -d "=" -f 2 | xargs
           )"
         id: develop-version
       - name: Checkout the repo to PR
@@ -26,8 +25,7 @@ jobs:
       - name: Read pyproject.toml from PR
         run: >-
           echo "::set-output name=PR_VERSION::$(
-            cat pyproject.toml |
-            grep version
+            cat pyproject.toml | grep version | cut -d "=" -f 2 | xargs
           )"
         id: pr-version
       - name: Setup Python 3.10
