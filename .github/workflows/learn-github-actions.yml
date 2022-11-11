@@ -36,5 +36,5 @@ jobs:
           python-version: 3.10.0
       - name: Check bump version
         run: |
-          python ./github/check_bump_version.py ${{steps.develop-version.outputs.DEVELOP_VERSION}} ${{steps.pr-version.outputs.PR_VERSION}}
+          python .github/check_bump_version.py ${{steps.develop-version.outputs.DEVELOP_VERSION}} ${{steps.pr-version.outputs.PR_VERSION}}
           exit $?
