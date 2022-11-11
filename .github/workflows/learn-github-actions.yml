@@ -33,7 +33,7 @@ jobs:
       - name: Setup Python 3.10
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          python-version: 3.10.0
       - name: Check bump version
         run: |
           python ./github/check_bump_version.py ${{steps.develop-version.outputs.DEVELOP_VERSION}} ${{steps.pr-version.outputs.PR_VERSION}}
