@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dvcas-config-generator"
-version = "1.4.0"
+version = "1.4.0-alpha.3"
 description = "Client library to support configuration of VCAS services via AppConfig"
 
 [tool.poetry.dependencies]
