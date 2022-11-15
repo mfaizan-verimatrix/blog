@@ -54,8 +54,8 @@ def main(old_version, new_version):
         sys.exit(0)
 
 
-    if (new_major == old_major) and
-        (new_minor == old_minor) and
+    if (new_major == old_major) and \
+        (new_minor == old_minor) and \
         (new_patch_version == old_patch_version):
 
         # pass, new patch > old patch
