@@ -7,6 +7,7 @@ on:
     - release
 jobs:
   Check-Version-Bump:
+    name: version checker
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo on ${{ github.base_ref }}
