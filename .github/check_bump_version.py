@@ -64,7 +64,7 @@ def main(old_version, new_version):
 
         # fail, new patch < old patch
         if ("-" not in old_patch) and ("-" in new_patch):
-            sys.exit(0)
+            sys.exit(1)
 
         old_dev_version = int(old_patch[-1])
         new_dev_version = int(new_patch[-1])
