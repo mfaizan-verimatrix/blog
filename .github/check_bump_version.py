@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import sys
 
 def main(old_version, new_version):
@@ -17,6 +19,14 @@ def main(old_version, new_version):
 
     # fail, new and old versions are equal
     if old_version == new_version:
+        sys.exit(1)
+
+    # fail, old version is not in proper format
+    if len(old_version.split(".")) < 3:
+        sys.exit(1)
+
+    # fail, new version is not in proper format
+    if len(new_version.split(".")) < 3:
         sys.exit(1)
 
     old_major, old_minor, old_patch = old_version.split(".", 2)
@@ -81,7 +91,6 @@ def main(old_version, new_version):
 if __name__ == "__main__":
 
     if len(sys.argv) < 3:
-        print('Bump versions not provided')
         sys.exit(1)
 
     try:
