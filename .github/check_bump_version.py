@@ -44,11 +44,11 @@ def main(old_version, new_version):
         sys.exit(1)
 
     # fail, new minor version cannot be lower than the current minor version
-    if new_minor < old_minor:
+    if (new_major == old_major) and (new_minor < old_minor):
         sys.exit(1)
 
     # fail, new patch version cannot be lower than the current patch version
-    if new_patch_version < old_patch_version:
+    if (new_major == old_major) and (new_minor == old_minor) and (new_patch_version < old_patch_version):
         sys.exit(1)
 
     # pass, major version bumped
@@ -56,11 +56,11 @@ def main(old_version, new_version):
         sys.exit(0)
 
     # pass, minor version bumped
-    if new_minor > old_minor:
+    if (new_major == old_major) and (new_minor > old_minor):
         sys.exit(0)
 
     # pass, patch version bumped
-    if new_patch_version > old_patch_version:
+    if (new_major == old_major) and (new_minor == old_minor) and (new_patch_version > old_patch_version):
         sys.exit(0)
 
 
