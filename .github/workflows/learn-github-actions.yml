@@ -33,7 +33,10 @@ jobs:
       - name: Setup Python 3.10
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          python-version: "3.10"
+          architecture: "x64"
+        env:
+          AGENT_TOOLSDIRECTORY: /opt/hostedtoolcache
       - name: Check bump version
         run: |
           python .github/check_bump_version.py ${{steps.base-version.outputs.BASE_VERSION}} ${{steps.pr-version.outputs.PR_VERSION}}
